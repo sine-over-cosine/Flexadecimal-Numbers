@@ -95,7 +95,13 @@ print("The result of adding ",f.flexadecimal," and ",g," is ",result," otherwise
 print("The result is in turn : ",Flex_to_Dec(result).decimalise())
 
        
-
+"""
+Output:
+41 in flexadecimal form is  1221  otherwise:  <1221>
+13 in flexadecimal form is  201  otherwise:  <201>
+The result of adding  1221  and  201  is  2100  otherwise: < 2100 >
+The result is in turn :  54
+"""
             
         
         
