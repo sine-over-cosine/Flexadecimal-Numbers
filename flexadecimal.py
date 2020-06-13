@@ -18,29 +18,18 @@ def factorial(n):
     return number
 
     
-class Number:
-    def __init__(self,number):
-        self.number=number
-        
-    def __str__(self):
-        return "<"+self.number+">"
+
     
-    def decimal(self):
-        number=0
-        for i in range(len(self.number)-1,-1,-1):
-            number+=factorial(int(self.number[i])+1)
-        return number
-    
-class Flexadecimal(Number):
+class Flexadecimal():
     def __init__(self,number):
         self.number=number
         self.flexadecimal=self.flexadecimal()
     
     def __str__(self):
-        return "<"+self.flexadecimal()+">"
+        return "<"+self.flexadecimal+">"
     
     def __repr__ (self):
-        return "<"+self.flexadecimal()+">"
+        return self.flexadecimal
     
     def flexadecimal(self):
         flexadecimal=[]
@@ -62,19 +51,51 @@ class Flexadecimal(Number):
         new=[]
         f1=self.flexadecimal[::-1]
         f2=other[::-1]
-        placing=max(len(f1),len(f2))
+        placing=1
         if len(f2)>len(f1):
-            f1+=[0]*(len(f2)-len(f1))
+            f1+="0"*(len(f2)-len(f1))
         elif len(f2)<=len(f1):
-            f2+=[0]*(len(f1)-len(f2))
+            f2+="0"*(len(f1)-len(f2))
         for i in range(0,len(f1)):
             if int(f1[i])+int(f2[i])+carry>placing:
                 new.append(int(f1[i])+int(f2[i])+carry-placing-1)
                 carry=1
-                placing
+                placing+=1
             else:
                 new.append(int(f1[i])+int(f2[i])+carry)
                 carry=0
+                placing+=1
+        string=""
+        for j in range(len(new)-1,-1,-1):
+            string+=str(new[j])
+        return string
+    
+class Flex_to_Dec():
+    def __init__ (self,number):
+        self.flexadecimal=number
+        
+    def decimalise(self):
+        n=0
+        fact=1
+        for i in range(len(self.flexadecimal)-1,-1,-1):
+            n+= int(self.flexadecimal[i])*factorial(fact)
+            fact+=1
+        return n
+    
+    def __str__(self):
+        return self.decimalise()
+    
+f=Flexadecimal(41)
+print("41 in flexadecimal form is ",f.flexadecimal," otherwise: ",f)
+g=Flexadecimal(13).flexadecimal
+print("13 in flexadecimal form is ",g," otherwise: ",Flexadecimal(13))
+result=f.addition(g)
+print("The result of adding ",f.flexadecimal," and ",g," is ",result," otherwise: <",result,">")
+
+print("The result is in turn : ",Flex_to_Dec(result).decimalise())
+
+       
+
             
         
         
